@@ -1,19 +1,17 @@
 const chatData= document.getElementById('chat');
-const setUpChat = (data) =>{
+function setUpChat(){
     let html='';
-    data.forEach(doc => {
-        const mess = doc.data();
-        console.log(mess);
-        const currdata=`
-        <div class="chat-text"> ${mess.message}</div>
-         `;
-         html+=currdata;
-         chatData.innerHTML=html;
+    db1.ref('chats').on('value',function(snapshot){
+        snapshot.forEach(element => {
+            const currdata=`
+            <div class="chat-text"> ${element.val().message}</div>
+            `;
+            html+=currdata;
+        });
+        chatData.innerHTML=html;
     });
 }
-db.collection('chats').get().then(snapshot =>{
- setUpChat(snapshot.docs);
-});
+
 
 function sendMessage(){
     const currdata=document.getElementById('input-data').value;
@@ -21,13 +19,11 @@ function sendMessage(){
     <div class="chat-text"> ${currdata}</div>
       `;
       const time = new Date();
-    db.collection('chats').add({
-        aim:time.toString(),
-        message:messageCurr,
-    });
-    db.collection('chats').get().then(snapshot =>{
-        setUpChat(snapshot.docs);
-       });
+      var timenow=(time.getHours()*3600)+(time.getMinutes()*60)+(time.getSeconds());
+     db1.ref('chats').push({
+         message:messageCurr,time:timenow,
+     },false);
+     setUpChat();
 }
 
 document.getElementById('btn').addEventListener('click',e=>{
