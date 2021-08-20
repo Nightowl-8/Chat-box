@@ -1,11 +1,33 @@
-let html='';
+const chatData= document.getElementById('chat');
+const setUpChat = (data) =>{
+    let html='';
+    data.forEach(doc => {
+        const mess = doc.data();
+        console.log(mess);
+        const currdata=`
+        <div class="chat-text"> ${mess.message}</div>
+         `;
+         html+=currdata;
+         chatData.innerHTML=html;
+    });
+}
+db.collection('chats').get().then(snapshot =>{
+ setUpChat(snapshot.docs);
+});
+
 function sendMessage(){
     const currdata=document.getElementById('input-data').value;
-    const mess =` 
-        <div class="chat-text"> ${currdata}</div>
-    `;
-    html+=mess;
-    document.getElementById('chat').innerHTML=html;
+    const messageCurr=`
+    <div class="chat-text"> ${currdata}</div>
+      `;
+      const time = new Date();
+    db.collection('chats').add({
+        aim:time.toString(),
+        message:messageCurr,
+    });
+    db.collection('chats').get().then(snapshot =>{
+        setUpChat(snapshot.docs);
+       });
 }
 
 document.getElementById('btn').addEventListener('click',e=>{

@@ -20,5 +20,26 @@
       </div>  
     </main>
 </body>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAGSxDrScQ6WQQcK-KcBJdWWEiYx0R9zQQ",
+    authDomain: "project1-e54d9.firebaseapp.com",
+    projectId: "project1-e54d9",
+    storageBucket: "project1-e54d9.appspot.com",
+    messagingSenderId: "704925816487",
+    appId: "1:704925816487:web:08c83e9b9edd3d04b56d82"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db =firebase.firestore();
+  const auth = firebase.auth();
+</script>
 <script src="script.js"></script>
 </html>
